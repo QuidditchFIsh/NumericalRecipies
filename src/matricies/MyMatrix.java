@@ -5,13 +5,12 @@
 
 package matricies;
 import java.util.*;
+import java.io.*;
+
 public class MyMatrix 
 {
-	
 
 double[][] matrix;
-
-
 
 public MyMatrix( MyMatrix A)
 {
@@ -22,6 +21,18 @@ public MyMatrix( MyMatrix A)
 public MyMatrix(int m, int n)
 {	
 	matrix = new double[m][n];
+}
+public MyMatrix readScaner( Scanner input)
+{
+	// This method will create a matrix according to an input file of a form specified in README
+	MyMatrix A = new MyMatrix(input.nextInt(),input.nextInt());
+	for (int i=0;i<A.matrix.length;i++)
+		for(int j=0;j<A.matrix[0].length;j++)
+		{
+			A.matrix[i][j] = input.nextDouble();
+		}
+	return A;
+	
 }
 
 public void setElements(int x, int y, double val )
@@ -203,13 +214,23 @@ public void printout()
 		
 	}
 }
-/*
-public myMatrix inverse(MyMatrix A)
+
+public MyMatrix inverse(MyMatrix A)
 {
 	// A method to calculate the inverse of a given matrix A. This will use the cofactor method so will make heavy use of 
 	// the determinat method.FIND ANOTHER WAY TO DO THIS;.
+	MyMatrix B = new MyMatrix(A.matrix.length,A.matrix[0].length);
+	for(int i=0;i<A.matrix.length;i++)
+		for ( int j=0;j<A.matrix[0].length;j++)
+		{
+			
+		}
 }
-*/
+private MyMatrix coFactor(int m, int n)
+{
+	// A method to create the coFactor matrix for calculating the inverse of a matrix
+}
+
 
 
 
