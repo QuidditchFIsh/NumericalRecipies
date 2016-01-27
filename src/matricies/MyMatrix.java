@@ -4,7 +4,7 @@
 */
 
 package matricies;
-
+import java.util.*;
 public class MyMatrix 
 {
 	
@@ -20,7 +20,7 @@ public MyMatrix( MyMatrix A)
 }
 
 public MyMatrix(int m, int n)
-{
+{	
 	matrix = new double[m][n];
 }
 
@@ -37,6 +37,22 @@ public void setElements(int[][] matrix)
 			this.matrix[i][j] = matrix[i][j];
 		}
 	// A method to take in an array and create a matrix.
+}
+public void setElements(double[] column)
+{
+	if (column.length == this.matrix.length * this.matrix[0].length)
+	{
+		int k=0;
+		for( int i=0;i<matrix.length;i++)
+			for (int j=0;j<matrix[0].length;j++)
+			{
+				matrix[i][j]=column[k];
+				k++;
+			}
+		
+		
+	}
+		
 }
 
 public double getElements(int x, int y)
@@ -131,6 +147,9 @@ public double determinant(MyMatrix A)
 {
 	//Method to return the determinant of an nxn matrix by reducing it to a matrix of determinants. This method will only 
 	//calculate the determinant of 2x2 matricies. For all others it will break them down into small matricies to calculate det
+	//Try to find another way to do this as this is inefficent.
+	if ( A.matrix.length == A.matrix[0].length)
+	{
 	if(A.matrix.length ==2 && A.matrix[0].length == 2)
 	{
 		//System.out.println((A.matrix[0][0] * A.matrix[1][1]) - (A.matrix[0][1] * A.matrix[1][0]));
@@ -140,22 +159,34 @@ public double determinant(MyMatrix A)
 	{
 		double det=0;
 		MyMatrix B = new MyMatrix(A.matrix.length-1,A.matrix[0].length-1);
+		
 		for (int i =0; i<A.matrix.length ; i++)
 		{
+			double[] column = new double[(A.matrix.length-1) * (A.matrix[0].length-1)];
+			int c=0;
 			for (int j=0;j<A.matrix.length;j++)
 			{
 				for (int k=0; k<A.matrix[0].length;k++)
 				{
-					if(j!= i && k!=i)
-						System.out.println(A.getElements(j, k)+ " " + j + " " + k);
-						B.setElements(j-i, k-i, A.getElements(j, k));
+					if(j!= 0 && k!=i)
+					{
+						column[c]=A.matrix[j][k];
+						c++;
+					}
+					
 				}
 			}
+			B.setElements(column);
 			B.printout();
 			System.out.println();
 			det += determinant(B)* Math.pow(-1, A.matrix[0][i])*A.matrix[0][i];
 		}
 		return det;
+	}
+	}
+	else
+	{
+		return 0;
 	}
 }
 public void printout()
