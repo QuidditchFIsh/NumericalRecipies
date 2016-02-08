@@ -39,4 +39,18 @@ public class gausianPDF
 	{
 		return Math.exp((-1*Math.pow(x-mean,2))/(2* Math.pow(width, 2)));
 	}
+	public double numericINtergrate(double hi, double lo)
+	{
+		int noPoints = 10000;
+		
+		double sum=0;
+		
+		for ( int i=0; i<noPoints; i++)
+		{
+			double x = lo + gausianPDF.next() *(hi -lo);
+			
+			sum += evaluategausian(x);
+		}
+		return (sum * (hi-lo)) / noPoints;
+	}
 }
